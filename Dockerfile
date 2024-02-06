@@ -2,7 +2,10 @@ FROM oraclelinux:7.9
 
 RUN rpm --import https://package.perforce.com/perforce.pubkey
 COPY perforce.repo /etc/yum.repos.d/perforce.repo
-RUN yum install -y openssh-server cronie helix-git-fusion-2017.2 && yum clean all && rm -rf /var/cache/yum
+RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+    && yum install -y git git-lfs openssh-server cronie git helix-git-fusion-2017.2 \
+    && yum clean all \
+    && rm -rf /var/cache/yum
 
 VOLUME /opt/perforce/git-fusion/home/perforce-git-fusion
 VOLUME /etc/ssh
