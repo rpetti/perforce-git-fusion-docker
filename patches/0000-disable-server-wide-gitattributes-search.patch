@@ -1,0 +1,26 @@
+--- /opt/perforce/git-fusion/libexec/p4gf_lfs_checker.py	2017-10-11 12:27:53.000000000 -0600
++++ /opt/perforce/git-fusion/libexec/p4gf_lfs_checker.py	2024-02-13 07:43:29.908499680 -0700
+@@ -265,14 +265,15 @@
+                 init_dict[''] = parse_gitattributes(initial_content)
+ 
+             # then add in any .gitattributes in effect prior to this change
+-            r = self.ctx.p4run(
+-                'files',
+-                '//.../.gitattributes@{}'.format(int(p4change.change) - 1))
+-            for change_file in r:
+-                depot_path = change_file['depotFile']
+-                gwt_dir = _get_gwt_path(self.ctx, depot_path, branch, p4change.change)
+-                init_dict[gwt_dir] = parse_gitattributes(
+-                    p4gf_util.print_depot_path_raw(self.ctx.p4, depot_path, p4change.change))
++            # this is completely asinine ~rpetti
++            #r = self.ctx.p4run(
++            #    'files',
++            #    '//.../.gitattributes@{}'.format(int(p4change.change) - 1))
++            #for change_file in r:
++            #    depot_path = change_file['depotFile']
++            #    gwt_dir = _get_gwt_path(self.ctx, depot_path, branch, p4change.change)
++            #    init_dict[gwt_dir] = parse_gitattributes(
++            #        p4gf_util.print_depot_path_raw(self.ctx.p4, depot_path, p4change.change))
+ 
+             prev_change = p4change.change - 1
+             self.change_gitattributes_dict[branch_name][prev_change] = \

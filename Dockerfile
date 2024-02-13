@@ -4,8 +4,13 @@ RUN rpm --import https://package.perforce.com/perforce.pubkey
 COPY perforce.repo /etc/yum.repos.d/perforce.repo
 RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
     && yum install -y git git-lfs openssh-server cronie git helix-git-fusion-2017.2 \
+    && yum install -y patch \
     && yum clean all \
     && rm -rf /var/cache/yum
+
+COPY patches /tmp/patches
+
+RUN bash -c "for p in /tmp/patches/*.patch; do patch -p0 <\$p; done"
 
 VOLUME /opt/perforce/git-fusion/home/perforce-git-fusion
 VOLUME /etc/ssh
