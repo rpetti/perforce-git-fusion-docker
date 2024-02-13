@@ -29,6 +29,8 @@ if [ ! -f ~git/is_configured ]; then
     touch ~git/is_configured
 fi
 
+usermod -p '*' git
+
 ssh-keygen -A
 
 #sshd
