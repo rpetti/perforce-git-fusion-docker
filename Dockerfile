@@ -16,6 +16,7 @@ VOLUME /opt/perforce/git-fusion/home/perforce-git-fusion
 VOLUME /etc/ssh
 
 EXPOSE 22
+EXPOSE 8080
 
 COPY entrypoint.sh /entrypoint.sh
 
@@ -28,5 +29,7 @@ ENV GITFUSION_P4PASSWD=""
 ENV P4PORT=perforce:1666
 ENV P4SUPERUSER=""
 ENV P4SUPERPASSWD=""
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/perforce/git-fusion/bin:/opt/perforce/git-fusion/libexec
+ENV LANG=en_US.UTF-8
 
 ENTRYPOINT ["/entrypoint.sh"]

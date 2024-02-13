@@ -37,5 +37,7 @@ ssh-keygen -A
 /usr/sbin/sshd -D -o ListenAddress=0.0.0.0 &
 #cron
 /usr/sbin/crond -n &
+#http server
+runuser -u git -- /opt/perforce/git-fusion/libexec/p4gf_http_server.py -p 8080 &
 #TODO: graceful shutdown
 wait

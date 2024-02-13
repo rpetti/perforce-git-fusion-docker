@@ -1,0 +1,15 @@
+--- /opt/perforce/git-fusion/libexec/p4gf_lfs_http_server.py	2024-02-13 13:52:11.429232068 -0700
++++ /opt/perforce/git-fusion/libexec/p4gf_lfs_http_server.py	2024-02-13 13:56:59.320242987 -0700
+@@ -388,9 +388,11 @@
+         try:
+             if self._get_lfs_url(validate=False) is None:
+                 raise p4gf_server_common.CommandError('missing http-url config setting')
+-            self._ensure_not_readonly(ctx)
+             self._check_perms()
+             objects = self._build_batch_response(ctx, request)
++            # Check if there are any uploads being requested, and deny if read-only
++            if request['operation'] != 'download':
++                self._ensure_not_readonly(ctx)
+         except p4gf_server_common.CommandError as ce:
+             objects = self._build_error_response(request, str(ce))
+         except p4gf_server_common.ReadOnlyInstanceException as roie:
