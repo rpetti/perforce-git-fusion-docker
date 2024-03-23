@@ -1,0 +1,11 @@
+--- /opt/perforce/git-fusion/libexec/p4gf_fastimport.py
++++ /opt/perforce/git-fusion/libexec/p4gf_fastimport.py
+@@ -229,7 +229,7 @@ class FastImport:
+                     pointer = LFSFileSpec.for_blob(self.ctx, p4file.sha1)
+                     p4file.sha1 = str(self.ctx.repo.create_blob(pointer.to_text_pointer()))
+                     self.text_pointers.append(p4file.sha1)
+-                    self.lfs_files[pointer.oid] = p4file.depot_path
++                    self.lfs_files[pointer.oid] = p4file.depot_path + "#" + p4file.revision
+                 if p4file.is_x_type():
+                     mode = "100755"
+                 elif p4file.is_symlink():
