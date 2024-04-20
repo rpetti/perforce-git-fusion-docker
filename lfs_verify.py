@@ -45,7 +45,7 @@ def is_potentially_bad_filelog(filelog):
 
 
 def _calculate_sha256_of_filepath(filepath):
-    p = subprocess.Popen(["p4", "print", "-q", filepath], stdout=subprocess.PIPE)
+    p = subprocess.Popen(["p4", "print", "-k", "-q", filepath], stdout=subprocess.PIPE)
     sha256_hash = hashlib.sha256()
     for block in iter(lambda: p.stdout.read(4096), b""):
         sha256_hash.update(block)
