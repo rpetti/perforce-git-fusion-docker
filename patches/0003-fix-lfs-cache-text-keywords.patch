@@ -1,0 +1,11 @@
+--- /opt/perforce/git-fusion/libexec/p4gf_lfs_http_server.py
++++ /opt/perforce/git-fusion/libexec/p4gf_lfs_http_server.py
+@@ -352,7 +352,7 @@ class LargeFileHttpServer(p4gf_http_common.HttpServer):
+             depot_path = lfs_spec.depot_path(ctx)
+             cache_path = lfs_spec.cache_path(ctx)
+             with p4gf_util.raw_encoding(ctx.p4):
+-                ctx.p4run('print', '-q', '-o', cache_path, depot_path)
++                ctx.p4run('print', '-k', '-q', '-o', cache_path, depot_path)
+         else:
+             cache_path = lfs_spec.cache_path(ctx)
+         file_size = os.stat(cache_path).st_size
